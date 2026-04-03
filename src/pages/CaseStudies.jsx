@@ -1,6 +1,6 @@
 import TransitionLink from '../components/TransitionLink'
 
-function Work() {
+function CaseStudies() {
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center px-8"
@@ -28,4 +28,4 @@ function Work() {
   )
 }
 
-export default Work
+export default CaseStudies
