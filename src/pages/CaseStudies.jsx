@@ -1,6 +1,6 @@
 import TransitionLink from '../components/TransitionLink'
 
-function About() {
+function Work() {
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center px-8"
@@ -15,10 +15,10 @@ function About() {
       </TransitionLink>
 
       <p className="text-xs tracking-widest uppercase mb-4" style={{ color: '#99acff' }}>
-        IV — The Sun
+        III — The Fool
       </p>
       <h1 className="text-4xl font-light tracking-widest uppercase mb-16" style={{ color: '#f0f0ff' }}>
-        About
+        Case Studies
       </h1>
 
       <p className="text-sm font-light" style={{ color: '#f0f0ff' }}>
@@ -28,4 +28,4 @@ function About() {
   )
 }
 
-export default About
+export default Work
