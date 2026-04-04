@@ -1,4 +1,5 @@
 import TransitionLink from '../components/TransitionLink'
+import MiniCard from '../components/MiniCard'
 
 const skills = [
   {
@@ -80,6 +81,11 @@ function Skills() {
           </div>
         ))}
       </div>
+
+      <MiniCard
+        number="I"
+        meaning="The High Priestess holds hidden knowledge and mastered intuition. She was chosen for Skills because the best designers don't just know their tools — they know when and why to use them."
+      />
     </main>
   )
 }

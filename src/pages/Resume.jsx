@@ -1,4 +1,5 @@
 import TransitionLink from '../components/TransitionLink'
+import MiniCard from '../components/MiniCard'
 
 function Resume() {
   return (
@@ -24,6 +25,11 @@ function Resume() {
       <p className="text-sm font-light" style={{ color: '#f0f0ff' }}>
         Content coming soon.
       </p>
+
+      <MiniCard
+        number="V"
+        meaning="The Star is hope and direction — where you're headed, not just where you've been. Resume lives here because credentials are just the beginning of the story."
+      />
     </main>
   )
 }

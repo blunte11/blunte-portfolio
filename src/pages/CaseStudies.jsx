@@ -1,4 +1,5 @@
 import TransitionLink from '../components/TransitionLink'
+import MiniCard from '../components/MiniCard'
 
 function CaseStudies() {
   return (
@@ -21,9 +22,14 @@ function CaseStudies() {
         Case Studies
       </h1>
 
-      <p className="text-sm font-light" style={{ color: '#f0f0ff' }}>
+     <p className="text-sm font-light" style={{ color: '#f0f0ff' }}>
         Content coming soon.
       </p>
+
+      <MiniCard
+        number="III"
+        meaning="The Fool leaps before he looks, driven by curiosity and joy. Case Studies live here because the best creative work starts with a willingness to play."
+      />
     </main>
   )
 }

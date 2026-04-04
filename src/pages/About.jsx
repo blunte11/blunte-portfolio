@@ -1,4 +1,5 @@
 import TransitionLink from '../components/TransitionLink'
+import MiniCard from '../components/MiniCard'
 
 function About() {
   return (
@@ -47,9 +48,14 @@ function About() {
 
           <p>I'm also a small business owner in more ways than one. I'm helping bring my loved ones' personal business ideas to life on the website, design, administration and small business organization side. These include a local market and gourmet mushroom farm, a vacation rental, and a small private campsite. I bake under a separate project called Electric Bread Co. which I sell privately and coming soon to the market. I say this not to overwhelm you with side ventures, but because I know firsthand what it means to build something from nothing, to figure out branding and presence and customer trust without a roadmap. When I sit down with a small business client, I'm not theorizing. I have been there.</p>
 
-          <p>I work with small businesses who are ready to show up online the way they show up in real life, with intention, passion and purpose.</p>
+   <p>I work with small businesses who are ready to show up online the way they show up in real life, with intention, passion and purpose.</p>
         </div>
       </div>
+
+      <MiniCard
+        number="IV"
+        meaning="The Sun is radiance and clarity of self. This card was chosen for About because showing up fully and honestly is how real connection starts."
+      />
     </main>
   )
 }

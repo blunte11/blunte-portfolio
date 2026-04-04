@@ -1,4 +1,5 @@
 import TransitionLink from '../components/TransitionLink'
+import MiniCard from '../components/MiniCard'
 
 function ClientProjects() {
   return (
@@ -24,6 +25,11 @@ function ClientProjects() {
       <p className="text-sm font-light" style={{ color: '#f0f0ff' }}>
         Content coming soon.
       </p>
+
+      <MiniCard
+        number="II"
+        meaning="Judgement is the moment of reckoning — real work, real results, real accountability. These are the sites that exist in the world."
+      />
     </main>
   )
 }
