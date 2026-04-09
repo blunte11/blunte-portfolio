@@ -1,4 +1,5 @@
 import TarotCard from '../components/TarotCard'
+import Footer from '../components/Footer'
 
 const cards = [
   { number: 'I', name: 'The High Priestess', section: 'Skills', path: '/skills' },
@@ -40,6 +41,7 @@ function Home({ setFading }) {
           />
         ))}
       </div>
+    <Footer />
     </main>
   )
 }
