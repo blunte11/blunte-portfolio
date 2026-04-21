@@ -1,8 +1,48 @@
 import { useState } from 'react'
 import cardBack from '../assets/images/tarot-card-back.png'
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
 function MiniCard({ number, meaning }) {
   const [flipped, setFlipped] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+
+  if (isMobile) {
+    return (
+      <div
+        className="fixed bottom-0 left-0 right-0 flex flex-col items-center"
+        style={{ zIndex: 100 }}
+      >
+        <button
+          onClick={() => setDrawerOpen(!drawerOpen)}
+          className="w-full flex flex-col items-center py-3 gap-1"
+          style={{
+            backgroundColor: '#1a1917',
+            borderTop: '1px solid #8B5CF6',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          <div style={{ width: '40px', height: '3px', borderRadius: '2px', backgroundColor: '#99acff', opacity: 0.6 }} />
+          <p className="text-xs tracking-widest uppercase" style={{ color: '#99acff' }}>
+            {drawerOpen ? 'close' : `${number} — the card`}
+          </p>
+        </button>
+
+        <div style={{
+          width: '100%',
+          maxHeight: drawerOpen ? '200px' : '0px',
+          overflow: 'hidden',
+          transition: 'max-height 0.4s ease',
+          backgroundColor: '#1a1917',
+        }}>
+          <p className="text-xs font-light leading-relaxed px-6 py-4 text-center" style={{ color: '#f0f0ff' }}>
+            {meaning}
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="fixed bottom-20 right-8 flex flex-col items-center gap-2 cursor-pointer" style={{ perspective: '600px' }} onClick={() => setFlipped(!flipped)}>
