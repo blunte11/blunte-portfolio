@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cardBack from '../assets/images/tarot-card-back.png'
 
@@ -16,8 +16,30 @@ function MobileHome({ setFading }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [zooming, setZooming] = useState(false)
+  const touchStartX = useRef(null)
 
   const card = cards[currentIndex]
+
+  function goToCard(index) {
+    if (index === currentIndex || index < 0 || index >= cards.length) return
+    setFlipped(false)
+    setZooming(false)
+    setTimeout(() => setCurrentIndex(index), 200)
+  }
+
+  function handleTouchStart(e) {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  function handleTouchEnd(e) {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goToCard(currentIndex + 1)
+      else goToCard(currentIndex - 1)
+    }
+    touchStartX.current = null
+  }
 
   function handleTap() {
     if (zooming) return
@@ -35,13 +57,6 @@ function MobileHome({ setFading }) {
     }, 800)
   }
 
-  function goToCard(index) {
-    if (index === currentIndex) return
-    setFlipped(false)
-    setZooming(false)
-    setTimeout(() => setCurrentIndex(index), 300)
-  }
-
   return (
     <main className="min-h-screen flex flex-col items-center justify-between px-6 py-12" style={{ backgroundColor: '#312e2d' }}>
       <div className="text-center">
@@ -49,7 +64,12 @@ function MobileHome({ setFading }) {
         <p className="text-xs tracking-widest uppercase" style={{ color: '#99acff' }}>Website Designer & UI/UX</p>
       </div>
 
-      <div className="flex flex-col items-center gap-6 w-full" onClick={handleTap}>
+      <div
+        className="flex flex-col items-center gap-6 w-full"
+        onClick={handleTap}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div style={{ perspective: '800px', width: '220px' }}>
           <div style={{
             transition: zooming ? 'transform 0.6s ease-in' : 'transform 0.9s ease',
@@ -86,7 +106,7 @@ function MobileHome({ setFading }) {
         </div>
 
         {!flipped && (
-          <p className="text-xs tracking-widest uppercase opacity-50" style={{ color: '#f0f0ff' }}>tap card to reveal</p>
+          <p className="text-xs tracking-widest uppercase opacity-50" style={{ color: '#f0f0ff' }}>swipe or tap to explore</p>
         )}
       </div>
 
