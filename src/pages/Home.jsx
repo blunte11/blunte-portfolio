@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react'
 import TarotCard from '../components/TarotCard'
 import Footer from '../components/Footer'
+import BotanicalVines from '../components/BotanicalVines'
+import MobileHome from '../components/MobileHome'
 
 const cards = [
   { number: 'I', name: 'The High Priestess', section: 'Skills', path: '/skills' },
@@ -11,25 +14,26 @@ const cards = [
 ]
 
 function Home({ setFading }) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  if (isMobile) return <MobileHome setFading={setFading} />
+
   return (
-    <main
-      className="min-h-screen flex flex-col items-center justify-center px-8 py-12"
-      style={{ backgroundColor: '#312e2d' }}
-    >
-      <h1
-        className="text-4xl font-light tracking-widest uppercase mb-2"
-        style={{ color: '#f0f0ff' }}
-      >
+    <main className="min-h-screen flex flex-col items-center justify-center px-8 py-12 relative" style={{ backgroundColor: '#312e2d' }}>
+      <BotanicalVines />
+      <h1 className="text-4xl font-light tracking-widest uppercase mb-2 relative z-10" style={{ color: '#f0f0ff' }}>
         Brit Lunte
       </h1>
-      <p
-        className="text-sm tracking-widest uppercase mb-16"
-        style={{ color: '#99acff' }}
-      >
+      <p className="text-sm tracking-widest uppercase mb-16 relative z-10" style={{ color: '#99acff' }}>
         Website Designer & UI/UX
       </p>
-
-   <div className="grid grid-cols-3 w-full max-w-7xl gap-x-48 gap-y-20 px-24">
+      <div className="grid grid-cols-3 w-full max-w-7xl gap-x-48 gap-y-20 px-24 relative z-10">
         {cards.map((card) => (
           <TarotCard
             key={card.path}
@@ -41,7 +45,7 @@ function Home({ setFading }) {
           />
         ))}
       </div>
-    <Footer />
+      <Footer />
     </main>
   )
 }
