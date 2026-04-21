@@ -13,11 +13,15 @@ const cards = [
   { number: 'VI', name: 'The Moon', section: 'Contact', path: '/contact' },
 ]
 
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+}
+
 function Home({ setFading }) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
+  const [isMobile, setIsMobile] = useState(isMobileDevice() || window.innerWidth < 640)
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 640)
+    const handleResize = () => setIsMobile(isMobileDevice() || window.innerWidth < 640)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
@@ -35,14 +39,7 @@ function Home({ setFading }) {
       </p>
       <div className="grid grid-cols-3 w-full max-w-7xl gap-x-48 gap-y-20 px-24 relative z-10">
         {cards.map((card) => (
-          <TarotCard
-            key={card.path}
-            number={card.number}
-            name={card.name}
-            section={card.section}
-            path={card.path}
-            setFading={setFading}
-          />
+          <TarotCard key={card.path} number={card.number} name={card.name} section={card.section} path={card.path} setFading={setFading} />
         ))}
       </div>
       <Footer />

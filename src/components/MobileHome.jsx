@@ -30,8 +30,8 @@ function MobileHome({ setFading }) {
     setTimeout(() => {
       setCurrentIndex(index)
       setSlideDirection(null)
-      setTimeout(() => setIsSliding(false), 400)
-    }, 350)
+      setTimeout(() => setIsSliding(false), 700)
+    }, 650)
   }
 
   function handleTouchStart(e) {
@@ -65,8 +65,8 @@ function MobileHome({ setFading }) {
   }
 
   const slideStyle = {
-    transition: isSliding ? 'transform 0.35s ease, opacity 0.35s ease' : 'none',
-    transform: slideDirection === 'left' ? 'translateX(-120%) rotate(-8deg)' : slideDirection === 'right' ? 'translateX(120%) rotate(8deg)' : 'translateX(0) rotate(0deg)',
+    transition: isSliding ? 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.65s ease' : 'none',
+    transform: slideDirection === 'left' ? 'translateX(-130%) rotate(-12deg)' : slideDirection === 'right' ? 'translateX(130%) rotate(12deg)' : 'translateX(0) rotate(0deg)',
     opacity: slideDirection ? 0 : 1,
   }
 
@@ -77,11 +77,7 @@ function MobileHome({ setFading }) {
         <p className="text-xs tracking-widest uppercase" style={{ color: '#99acff' }}>Website Designer & UI/UX</p>
       </div>
 
-      <div
-        className="flex flex-col items-center gap-6 w-full"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className="flex flex-col items-center gap-6 w-full" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <div style={{ perspective: '800px', width: '220px', ...slideStyle }} onClick={handleTap}>
           <div style={{
             transition: zooming ? 'transform 0.6s ease-in' : 'transform 0.9s ease',
@@ -111,7 +107,7 @@ function MobileHome({ setFading }) {
           </div>
         </div>
 
-        <div className="text-center" style={{ opacity: slideDirection ? 0 : 1, transition: 'opacity 0.35s ease' }}>
+        <div className="text-center" style={{ opacity: slideDirection ? 0 : 1, transition: 'opacity 0.65s ease' }}>
           <p className="text-xs tracking-widest uppercase mb-1" style={{ color: '#99acff' }}>{card.number}</p>
           <p className="text-sm font-light tracking-wide" style={{ color: '#f0f0ff' }}>{card.name}</p>
           <p className="text-xs tracking-widest uppercase mt-1" style={{ color: '#99acff' }}>{card.section}</p>
@@ -125,20 +121,16 @@ function MobileHome({ setFading }) {
       <div className="flex flex-col items-center gap-6">
         <div className="flex gap-3">
           {cards.map((c, i) => (
-            <button
-              key={c.path}
-              onClick={(e) => { e.stopPropagation(); goToCard(i, i > currentIndex ? 'left' : 'right') }}
-              style={{
-                width: i === currentIndex ? '24px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                backgroundColor: i === currentIndex ? '#99acff' : '#3a3836',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                padding: 0,
-              }}
-            />
+            <button key={c.path} onClick={(e) => { e.stopPropagation(); goToCard(i, i > currentIndex ? 'left' : 'right') }} style={{
+              width: i === currentIndex ? '24px' : '8px',
+              height: '8px',
+              borderRadius: '4px',
+              backgroundColor: i === currentIndex ? '#99acff' : '#3a3836',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              padding: 0,
+            }} />
           ))}
         </div>
         <a href="https://www.thebritluntecollective.com" target="_blank" rel="noopener noreferrer" className="text-xs tracking-widest uppercase" style={{ color: '#99acff', textDecoration: 'none', opacity: 0.6 }}>
