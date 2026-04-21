@@ -71,9 +71,9 @@ function MobileHome({ setFading }) {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-between px-6 py-12" style={{ backgroundColor: '#312e2d' }}>
-      <div className="text-center">
-        <h1 className="text-3xl font-light tracking-widest uppercase mb-2" style={{ color: '#f0f0ff' }}>Brit Lunte</h1>
+    <main className="min-h-screen flex flex-col items-center justify-between px-6 pt-16 pb-10" style={{ backgroundColor: '#312e2d' }}>
+      <div className="text-center mb-12">
+        <h1 className="text-3xl font-light tracking-widest uppercase mb-3" style={{ color: '#f0f0ff' }}>Brit Lunte</h1>
         <p className="text-xs tracking-widest uppercase" style={{ color: '#99acff' }}>Website Designer & UI/UX</p>
       </div>
 
@@ -118,7 +118,7 @@ function MobileHome({ setFading }) {
         )}
       </div>
 
-      <div className="flex flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-6 mt-8">
         <div className="flex gap-3">
           {cards.map((c, i) => (
             <button key={c.path} onClick={(e) => { e.stopPropagation(); goToCard(i, i > currentIndex ? 'left' : 'right') }} style={{
