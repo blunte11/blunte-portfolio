@@ -12,16 +12,18 @@ const projects = [
   { title: 'R.S. Cook Enterprises', year: '2026', path: '/client-projects/rs-cook-enterprises' },
 ]
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 640
+
 function ClientProjects() {
   const navigate = useNavigate()
   return (
-    <main className="flex flex-col px-4 py-16 md:px-16 md:py-20" style={{ backgroundColor: '#312e2d' }}>
+    <main className="flex flex-col px-4 py-16" style={{ backgroundColor: '#312e2d', paddingLeft: isMobile ? '1rem' : '4rem', paddingRight: isMobile ? '1rem' : '4rem' }}>
       <TransitionLink to="/" className="self-start text-xs tracking-widest uppercase mb-12" style={{ color: '#99acff' }}>
         Back
       </TransitionLink>
       <p className="text-xs tracking-widest uppercase mb-4 text-center" style={{ color: '#99acff' }}>II — Judgement</p>
-      <h1 className="text-3xl md:text-4xl font-light tracking-widest uppercase mb-12 text-center" style={{ color: '#f0f0ff' }}>Client Projects</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl self-center pb-24">
+      <h1 className="font-light tracking-widest uppercase mb-12 text-center" style={{ color: '#f0f0ff', fontSize: isMobile ? '2rem' : '2.5rem' }}>Client Projects</h1>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '1.5rem', width: '100%', maxWidth: '64rem', alignSelf: 'center', paddingBottom: '6rem' }}>
         {projects.map((project) => (
           <div key={project.path} onClick={() => navigate(project.path)} className="cursor-pointer p-6 rounded-2xl flex flex-col gap-4" style={{ background: 'linear-gradient(#1a1917, #1a1917) padding-box, linear-gradient(135deg, #8B5CF6, #99acff, #ffa9ef) border-box', border: '2px solid transparent' }}>
             <p className="text-xs tracking-widest uppercase" style={{ color: '#99acff' }}>{project.year}</p>

@@ -9,26 +9,17 @@ function MiniCard({ number, meaning }) {
 
   if (isMobile) {
     return (
-      <div
-        className="fixed bottom-0 left-0 right-0 flex flex-col items-center"
-        style={{ zIndex: 100 }}
-      >
+      <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center" style={{ zIndex: 100 }}>
         <button
           onClick={() => setDrawerOpen(!drawerOpen)}
-          className="w-full flex flex-col items-center py-3 gap-1"
-          style={{
-            backgroundColor: '#1a1917',
-            borderTop: '1px solid #8B5CF6',
-            border: 'none',
-            cursor: 'pointer',
-          }}
+          className="w-full flex flex-col items-center gap-2 py-4"
+          style={{ backgroundColor: '#1a1917', borderTop: '2px solid #8B5CF6', cursor: 'pointer', border: 'none', borderTop: '2px solid #8B5CF6' }}
         >
-          <div style={{ width: '40px', height: '3px', borderRadius: '2px', backgroundColor: '#99acff', opacity: 0.6 }} />
-          <p className="text-xs tracking-widest uppercase" style={{ color: '#99acff' }}>
-            {drawerOpen ? 'close' : `${number} — the card`}
+          <div style={{ width: '48px', height: '4px', borderRadius: '2px', backgroundColor: '#99acff' }} />
+          <p className="text-xs tracking-widest uppercase" style={{ color: '#f0f0ff' }}>
+            {drawerOpen ? '✕ close' : `${number} — why this card?`}
           </p>
         </button>
-
         <div style={{
           width: '100%',
           maxHeight: drawerOpen ? '200px' : '0px',
@@ -36,7 +27,7 @@ function MiniCard({ number, meaning }) {
           transition: 'max-height 0.4s ease',
           backgroundColor: '#1a1917',
         }}>
-          <p className="text-xs font-light leading-relaxed px-6 py-4 text-center" style={{ color: '#f0f0ff' }}>
+          <p className="text-xs font-light leading-relaxed px-6 py-5 text-center" style={{ color: '#f0f0ff' }}>
             {meaning}
           </p>
         </div>
