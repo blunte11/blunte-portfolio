@@ -16,15 +16,22 @@ function MobileHome({ setFading }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [zooming, setZooming] = useState(false)
+  const [slideDirection, setSlideDirection] = useState(null)
+  const [isSliding, setIsSliding] = useState(false)
   const touchStartX = useRef(null)
 
   const card = cards[currentIndex]
 
-  function goToCard(index) {
-    if (index === currentIndex || index < 0 || index >= cards.length) return
+  function goToCard(index, direction) {
+    if (index === currentIndex || index < 0 || index >= cards.length || isSliding) return
+    setSlideDirection(direction)
+    setIsSliding(true)
     setFlipped(false)
-    setZooming(false)
-    setTimeout(() => setCurrentIndex(index), 200)
+    setTimeout(() => {
+      setCurrentIndex(index)
+      setSlideDirection(null)
+      setTimeout(() => setIsSliding(false), 400)
+    }, 350)
   }
 
   function handleTouchStart(e) {
@@ -35,14 +42,14 @@ function MobileHome({ setFading }) {
     if (touchStartX.current === null) return
     const diff = touchStartX.current - e.changedTouches[0].clientX
     if (Math.abs(diff) > 50) {
-      if (diff > 0) goToCard(currentIndex + 1)
-      else goToCard(currentIndex - 1)
+      if (diff > 0) goToCard(currentIndex + 1, 'left')
+      else goToCard(currentIndex - 1, 'right')
     }
     touchStartX.current = null
   }
 
   function handleTap() {
-    if (zooming) return
+    if (zooming || isSliding) return
     if (!flipped) {
       setFlipped(true)
       return
@@ -57,6 +64,12 @@ function MobileHome({ setFading }) {
     }, 800)
   }
 
+  const slideStyle = {
+    transition: isSliding ? 'transform 0.35s ease, opacity 0.35s ease' : 'none',
+    transform: slideDirection === 'left' ? 'translateX(-120%) rotate(-8deg)' : slideDirection === 'right' ? 'translateX(120%) rotate(8deg)' : 'translateX(0) rotate(0deg)',
+    opacity: slideDirection ? 0 : 1,
+  }
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-between px-6 py-12" style={{ backgroundColor: '#312e2d' }}>
       <div className="text-center">
@@ -66,11 +79,10 @@ function MobileHome({ setFading }) {
 
       <div
         className="flex flex-col items-center gap-6 w-full"
-        onClick={handleTap}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div style={{ perspective: '800px', width: '220px' }}>
+        <div style={{ perspective: '800px', width: '220px', ...slideStyle }} onClick={handleTap}>
           <div style={{
             transition: zooming ? 'transform 0.6s ease-in' : 'transform 0.9s ease',
             transformStyle: 'preserve-3d',
@@ -99,13 +111,13 @@ function MobileHome({ setFading }) {
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="text-center" style={{ opacity: slideDirection ? 0 : 1, transition: 'opacity 0.35s ease' }}>
           <p className="text-xs tracking-widest uppercase mb-1" style={{ color: '#99acff' }}>{card.number}</p>
           <p className="text-sm font-light tracking-wide" style={{ color: '#f0f0ff' }}>{card.name}</p>
           <p className="text-xs tracking-widest uppercase mt-1" style={{ color: '#99acff' }}>{card.section}</p>
         </div>
 
-        {!flipped && (
+        {!flipped && !isSliding && (
           <p className="text-xs tracking-widest uppercase opacity-50" style={{ color: '#f0f0ff' }}>swipe or tap to explore</p>
         )}
       </div>
@@ -115,7 +127,7 @@ function MobileHome({ setFading }) {
           {cards.map((c, i) => (
             <button
               key={c.path}
-              onClick={(e) => { e.stopPropagation(); goToCard(i) }}
+              onClick={(e) => { e.stopPropagation(); goToCard(i, i > currentIndex ? 'left' : 'right') }}
               style={{
                 width: i === currentIndex ? '24px' : '8px',
                 height: '8px',
